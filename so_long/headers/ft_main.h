@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_main.c                                          :+:      :+:    :+:   */
+/*   ft_main.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inunes-o <inunes-o@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/21 17:33:27 by israelorien       #+#    #+#             */
-/*   Updated: 2022/10/21 19:54:30 by inunes-o         ###   ########.fr       */
+/*   Created: 2022/10/21 17:28:40 by israelorien       #+#    #+#             */
+/*   Updated: 2022/10/21 19:53:52 by inunes-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_main.h>
+#ifndef SO_LONG_H
+# define SO_LONG_H
 
-int	main(int argc, char **argv)
-{
-	(void) argc;
-	(void) argv;
-	printf("Deu certo");
+# include <mlx.h>
+# include <stdio.h>
+# include <string.h>
+# include <unistd.h>
 
-	void	*mlx;
-	void	*mlx_win;
+#define MACRO_EXAMPLE  42
 
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 800, 600, "Hello world!");
-	mlx_loop(mlx);
-}
+#endif
