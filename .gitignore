@@ -53,3 +53,7 @@ dkms.conf
 
 #vs_code
 .vscode/
+
+minitalk/server
+
+minitalk/client
