@@ -12,24 +12,27 @@
 
 #include "minitalk.h"
 
+// int	ft_isprint(int arg)
+// {
+// 	return (arg >= 32 && arg < 127);
+// }
+
 static void	receive_data(int signal)
 {
-	char	str[7 + 1];
-	char	c;
-	int		sig;
+	static char	cha;
+	static int	i;
 
-	c = 0;
-	if (c <= 7)
+	if (i < 8)
 	{
-		if (signal == SIGUSR1)
-			sig = 0;
-		else
-			sig = 1;
-		write(1, &sig, 1);
+		cha = ((signal == SIGUSR1) << i) | cha;
+		i++;
 	}
-	else
-		write(1, &sig, 1);
-	printf("Message received: %d\n", sig);
+	if (i == 8)
+	{
+		write(1, &cha, 1);
+		i = 0;
+		cha = 0;
+	}
 }
 
 int	main(void)
@@ -38,6 +41,6 @@ int	main(void)
 	signal(SIGUSR2, &receive_data);
 	printf("%d\n", getpid());
 	while (1)
-		pause();	 												 															
-	 				 		return (0);	
- 			} 				
+		pause();
+	return (0);
+}

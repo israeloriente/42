@@ -20,20 +20,11 @@ void	mandar(int pid, char c)
 	while (i < 8)
 	{
 		if ((c >> i++) & 1)
-			kill(pid, SIGUSR2);
-		else
 			kill(pid, SIGUSR1);
+		else
+			kill(pid, SIGUSR2);
 		usleep(100);
 	}
-	// printf("%i\n", (c >> 0) & 1);
-	// printf("%i\n", (c >> 1) & 1);
-	// printf("%i\n", (c >> 2) & 1);
-	// printf("%i\n", (c >> 3) & 1);
-	// printf("%i\n", (c >> 4) & 1);
-	// printf("%i\n", (c >> 5) & 1);
-	// printf("%i\n", (c >> 6) & 1);
-	// printf("%i\n", (c >> 7) & 1);
-	// printf("%i\n", (c >> 8) & 1);
 }
 
 int	parse_int(char *pid)
@@ -53,23 +44,23 @@ int	parse_int(char *pid)
 	return (num);
 }
 
-// printf("PID is: %s\n", pid);
-// printf("Message is: %s\n", msg);
 int	main(int argc, char *argv[])
 {
 	char	*pid_str;
 	char	*msg;
 	int		pid;
-	int		m;
+	int		i;
 
 	msg = 0;
+	i = 0;
 	if (!argv[1] || !argv[2])
 		return (0);
 	pid_str = argv[1];
 	msg = argv[2];
 	pid = parse_int(pid_str);
 	if (pid)
-		mandar(pid, msg[0]);
+		while (msg[i])
+			mandar(pid, msg[i++]);
 	else
 		printf("Invalid PID\n");
 }
