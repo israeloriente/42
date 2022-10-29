@@ -12,26 +12,32 @@
 
 #include "minitalk.h"
 
-void	teste(int sig)
+static void	receive_data(int signal)
 {
+	char	str[7 + 1];
 	char	c;
-	int		i;
+	int		sig;
 
-	if (sig == SIGUSR1)
 	c = 0;
+	if (c <= 7)
+	{
+		if (signal == SIGUSR1)
+			sig = 0;
+		else
+			sig = 1;
+		write(1, &sig, 1);
+	}
+	else
+		write(1, &sig, 1);
 	printf("Message received: %d\n", sig);
 }
 
 int	main(void)
 {
-	// struct sigaction	sig_action;
-	// sig_action.sa_sigaction = teste;
-	// sigaction(SIGUSR1, &teste, NULL);
-	// sigaction(SIGUSR2, &sig_action, NULL);
-	signal(SIGUSR1, &teste);
-	signal(SIGUSR2, &teste);
+	signal(SIGUSR1, &receive_data);
+	signal(SIGUSR2, &receive_data);
 	printf("%d\n", getpid());
 	while (1)
-		pause();
-	return (0);
-}
+		pause();	 												 															
+	 				 		return (0);	
+ 			} 				
