@@ -12,12 +12,28 @@
 
 #include "minitalk.h"
 
-void	mandar(char c)
+void	mandar(int pid, char c)
 {
-	printf("%c", c);
-	// printf("%i\n", (c >> 5) & 1);
-	// printf("%i\n", (c >> 4) & 1);
+	int	i;
+
+	i = 0;
+	while (i < 8)
+	{
+		if ((c >> i++) & 1)
+			kill(pid, SIGUSR2);
+		else
+			kill(pid, SIGUSR1);
+		usleep(100);
+	}
+	// printf("%i\n", (c >> 0) & 1);
+	// printf("%i\n", (c >> 1) & 1);
+	// printf("%i\n", (c >> 2) & 1);
 	// printf("%i\n", (c >> 3) & 1);
+	// printf("%i\n", (c >> 4) & 1);
+	// printf("%i\n", (c >> 5) & 1);
+	// printf("%i\n", (c >> 6) & 1);
+	// printf("%i\n", (c >> 7) & 1);
+	// printf("%i\n", (c >> 8) & 1);
 }
 
 int	parse_int(char *pid)
@@ -41,28 +57,19 @@ int	parse_int(char *pid)
 // printf("Message is: %s\n", msg);
 int	main(int argc, char *argv[])
 {
-	char	*pid;
+	char	*pid_str;
 	char	*msg;
-	int		i;
+	int		pid;
 	int		m;
 
 	msg = 0;
 	if (!argv[1] || !argv[2])
 		return (0);
-	pid = argv[1];
+	pid_str = argv[1];
 	msg = argv[2];
-	i = parse_int(pid);
-	if (i)
-	{
-		kill(i, SIGUSR1);
-		kill(i, SIGUSR2);
-	}
+	pid = parse_int(pid_str);
+	if (pid)
+		mandar(pid, msg[0]);
 	else
 		printf("Invalid PID\n");
-	mandar(msg[0]);
-	// while (msg[m])
-	// {
-	// 	mandar(msg[m]);
-	// 	m++;
-	// }
 }
