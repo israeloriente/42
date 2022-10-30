@@ -14,8 +14,7 @@
 
 static void	receive_data(int signal)
 {
-	static char	cha;
-	static int	i;
+	int	pid;
 
 	if (i < 8)
 	{
