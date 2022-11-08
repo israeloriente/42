@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: israeloriente <israeloriente@student.42    +#+  +:+       +#+        */
+/*   By: inunes-o <inunes-o@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 12:15:02 by israelorien       #+#    #+#             */
-/*   Updated: 2022/10/27 11:50:37 by israelorien      ###   ########.fr       */
+/*   Updated: 2022/11/08 20:03:19 by inunes-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	mandar(int pid, char c)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		usleep(100);
+		usleep(25);
 	}
 }
 

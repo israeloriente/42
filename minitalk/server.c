@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: israeloriente <israeloriente@student.42    +#+  +:+       +#+        */
+/*   By: inunes-o <inunes-o@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 12:16:51 by israelorien       #+#    #+#             */
-/*   Updated: 2022/10/27 12:00:36 by israelorien      ###   ########.fr       */
+/*   Updated: 2022/11/08 20:03:16 by inunes-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
-
-// int	ft_isprint(int arg)
-// {
-// 	return (arg >= 32 && arg < 127);
-// }
 
 static void	receive_data(int signal)
 {
@@ -33,14 +28,14 @@ static void	receive_data(int signal)
 		i = 0;
 		cha = 0;
 	}
+	usleep(25);
 }
 
 int	main(void)
 {
+	printf("%d\n", getpid());
 	signal(SIGUSR1, &receive_data);
 	signal(SIGUSR2, &receive_data);
-	printf("%d\n", getpid());
 	while (1)
 		pause();
-	return (0);
 }
