@@ -53,7 +53,7 @@ int	main(int argc, char *argv[])
 
 	msg = 0;
 	i = 0;
-	if (!argv[1] || !argv[2])
+	if ((!argv[1] || !argv[2]) && argc > 1)
 		return (0);
 	pid_str = argv[1];
 	msg = argv[2];
