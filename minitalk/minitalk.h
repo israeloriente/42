@@ -10,12 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-
 #ifndef MINITALK_H
 # define MINITALK_H
+# include <signal.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+
+int		parse_int(char *pid);
+char	*ft_itoa(int n);
+char	*ft_convert(int n, char *str);
+char	*ft_strdup(const char *s1);
+size_t	ft_strlen(const char *str);
 
 #endif

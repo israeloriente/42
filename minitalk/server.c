@@ -12,13 +12,21 @@
 
 #include "minitalk.h"
 
-static void	receive_data(int signal)
+static void	receive_data(int signum, siginfo_t *info, void *context)
 {
-	int	pid;
-
+	static char	cha;
+	static int	i;
+	
+	write(1, &signum, 1);
+	// if (info->si_pid)
+	// 	kill(info->si_pid, SIGUSR1);
+	printf("%d", signum);
+	(void)signum;
+	(void)info;
+	(void)context;
 	if (i < 8)
 	{
-		cha = ((signal == SIGUSR1) << i) | cha;
+		cha = ((signum == SIGUSR1) << i) | cha;
 		i++;
 	}
 	if (i == 8)
@@ -27,14 +35,21 @@ static void	receive_data(int signal)
 		i = 0;
 		cha = 0;
 	}
-	usleep(25);
+	usleep(250);
 }
 
 int	main(void)
 {
-	printf("%d\n", getpid());
-	signal(SIGUSR1, &receive_data);
-	signal(SIGUSR2, &receive_data);
+	struct sigaction	sig_action;
+	char				*pid;
+
+	sig_action.sa_sigaction = receive_data;
+	sigaction(SIGUSR1, &sig_action, NULL);
+	sigaction(SIGUSR2, &sig_action, NULL);
+	int teste = getpid();
+	pid = ft_itoa(teste);
+	write(1, pid, ft_strlen(pid));
 	while (1)
 		pause();
+	return (0);
 }

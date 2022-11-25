@@ -23,34 +23,27 @@ void	mandar(int pid, char c)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		usleep(25);
+		usleep(500);
 	}
 }
 
-int	parse_int(char *pid)
-{
-	int	i;
-	int	num;
-
-	i = 0;
-	num = 0;
-	while (pid && pid[i] >= 48 && pid[i] <= 57)
-	{
-		if (pid[i] <= 47 || pid[i] > 57)
-			return (0);
-		num = (num * 10) + (pid[i] - 48);
-		i++;
-	}
-	return (num);
-}
+// void	confirmed(int signum, siginfo_t *info, void *context)
+// {
+// 	(void)info;
+// 	(void)context;
+// 	printf("%d\n", signum);
+// }
 
 int	main(int argc, char *argv[])
 {
-	char	*pid_str;
-	char	*msg;
-	int		pid;
-	int		i;
+	char				*pid_str;
+	char				*msg;
+	int					pid;
+	int					i;
+	// struct sigaction	sig_action;
 
+	// sig_action.sa_sigaction = confirmed;
+	// sigaction(SIGUSR1, &sig_action, NULL);
 	msg = 0;
 	i = 0;
 	if ((!argv[1] || !argv[2]) && argc > 1)
