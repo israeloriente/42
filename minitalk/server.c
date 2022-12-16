@@ -50,6 +50,7 @@ static void	signal_handler(int signum, siginfo_t *pid, void *arg)
 		{
 			ft_printf("%s\n", client_str);
 			kill(client_pid, SIGUSR2);
+			free(client_pid);
 			client_str = NULL;
 		}
 		i = 0;
@@ -68,9 +69,9 @@ int	main(void)
 	ft_printf("%d\n", pid);
 	sig.sa_flags = SA_SIGINFO;
 	sig.sa_sigaction = &signal_handler;
+	sigemptyset(&sig.sa_mask);
 	sigaction(SIGUSR1, &sig, NULL);
 	sigaction(SIGUSR2, &sig, NULL);
-	sigemptyset(&sig.sa_mask);
 	while (1)
 		pause();
 	return (0);
