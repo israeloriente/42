@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: israeloriente <israeloriente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/12 15:48:52 by rasantos          #+#    #+#             */
-/*   Updated: 2022/12/16 16:58:29 by israelorien      ###   ########.fr       */
+/*   Created: 2022/03/16 11:43:50 by rasantos          #+#    #+#             */
+/*   Updated: 2022/12/16 17:04:24 by israelorien      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "ft_printf.h"
 
-# include "./lib/ft_printf/ft_printf.h"
-# include "./lib/libft/libft.h"
-# include <signal.h>
-# include <stdlib.h>
-# include <unistd.h>
+int	ft_putstr(char *str)
+{
+	int	a;
 
-#endif
+	a = 0;
+	if (!str)
+		return (ft_putstr("(null)"));
+	while (str[a] != '\0')
+	{
+		write (1, &str[a], 1);
+		a++;
+	}
+	return (a);
+}

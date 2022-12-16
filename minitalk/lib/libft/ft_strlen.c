@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: israeloriente <israeloriente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/12 15:48:52 by rasantos          #+#    #+#             */
-/*   Updated: 2022/12/16 16:58:29 by israelorien      ###   ########.fr       */
+/*   Created: 2022/12/16 17:02:23 by israelorien       #+#    #+#             */
+/*   Updated: 2022/12/16 17:05:02 by israelorien      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-# include "./lib/ft_printf/ft_printf.h"
-# include "./lib/libft/libft.h"
-# include <signal.h>
-# include <stdlib.h>
-# include <unistd.h>
+size_t	ft_strlen(const char *s)
+{
+	size_t	a;
 
-#endif
+	a = 0;
+	while (s[a] != '\0')
+		a++;
+	return (a);
+}

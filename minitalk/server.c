@@ -3,52 +3,74 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inunes-o <inunes-o@student.42.fr>          +#+  +:+       +#+        */
+/*   By: israeloriente <israeloriente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 12:16:51 by israelorien       #+#    #+#             */
-/*   Updated: 2022/11/08 20:03:16 by inunes-o         ###   ########.fr       */
+/*   Created: 2022/12/16 16:58:51 by israelorien       #+#    #+#             */
+/*   Updated: 2022/12/16 17:03:09 by israelorien      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-static void	receive_data(int signum, siginfo_t *info, void *context)
+static char	*increment_new_data(char new_char, char *client_str)
 {
-	static char	cha;
-	static int	i;
-	
-	write(1, &signum, 1);
-	// if (info->si_pid)
-	// 	kill(info->si_pid, SIGUSR1);
-	printf("%d", signum);
-	(void)signum;
-	(void)info;
-	(void)context;
-	if (i < 8)
+	char	*server_str;
+	size_t	len;
+
+	len = 0;
+	if (client_str)
+		len = ft_strlen(client_str);
+	server_str = (char *)malloc(sizeof(char) * (len + 2));
+	if (server_str)
 	{
-		cha = ((signum == SIGUSR1) << i) | cha;
-		i++;
+		server_str = ft_memcpy(server_str, client_str, len);
+		server_str[len] = new_char;
+		server_str[len + 1] = '\0';
 	}
+	free(client_str);
+	return (server_str);
+}
+
+static void	signal_handler(int signum, siginfo_t *pid, void *arg)
+{
+	static int				i;
+	static unsigned char	c;
+	static pid_t			client_pid;
+	static char				*client_str;
+
+	(void)arg;
+	client_pid = pid->si_pid;
+	c = ((signum == SIGUSR1) << i) | c;
+	i++;
 	if (i == 8)
 	{
-		write(1, &cha, 1);
+		if (c)
+			client_str = increment_new_data(c, client_str);
+		else if (client_str)
+		{
+			ft_printf("%s\n", client_str);
+			kill(client_pid, SIGUSR2);
+			client_str = NULL;
+		}
 		i = 0;
-		cha = 0;
+		c = 0;
 	}
-	usleep(250);
+	kill(client_pid, SIGUSR1);
 }
 
 int	main(void)
 {
-	struct sigaction	sig_action;
-	char				*pid;
+	int					pid;
+	struct sigaction	sig;
 
-	sig_action.sa_sigaction = receive_data;
-	sigaction(SIGUSR1, &sig_action, NULL);
-	sigaction(SIGUSR2, &sig_action, NULL);
-	int teste = getpid();
-	pid = ft_itoa(teste);
-	write(1, pid, ft_strlen(pid));
+	pid = getpid();
+	ft_printf("%s", "SERVER PID: ");
+	ft_printf("%d\n", pid);
+	sig.sa_flags = SA_SIGINFO;
+	sig.sa_sigaction = &signal_handler;
+	sigaction(SIGUSR1, &sig, NULL);
+	sigaction(SIGUSR2, &sig, NULL);
+	sigemptyset(&sig.sa_mask);
 	while (1)
 		pause();
 	return (0);
