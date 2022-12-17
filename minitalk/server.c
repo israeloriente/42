@@ -6,13 +6,13 @@
 /*   By: israeloriente <israeloriente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 16:58:51 by israelorien       #+#    #+#             */
-/*   Updated: 2022/12/16 17:03:09 by israelorien      ###   ########.fr       */
+/*   Updated: 2022/12/17 15:35:53 by israelorien      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-static char	*increment_new_data(char new_char, char *client_str)
+char	*increment_new_data(char new_char, char *client_str)
 {
 	char	*server_str;
 	size_t	len;
@@ -31,7 +31,7 @@ static char	*increment_new_data(char new_char, char *client_str)
 	return (server_str);
 }
 
-static void	signal_handler(int signum, siginfo_t *pid, void *arg)
+void	signal_handler(int signum, siginfo_t *pid, void *arg)
 {
 	static int				i;
 	static unsigned char	c;

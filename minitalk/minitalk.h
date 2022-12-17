@@ -6,7 +6,7 @@
 /*   By: israeloriente <israeloriente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 15:48:52 by israelorien       #+#    #+#             */
-/*   Updated: 2022/12/17 15:26:09 by israelorien      ###   ########.fr       */
+/*   Updated: 2022/12/17 15:35:00 by israelorien      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,25 +31,25 @@
  * @param pid Info about the client.
  * @param arg fait rien.
  */
-static void	signal_handler(int signum, siginfo_t *pid, void *arg);
+void	signal_handler(int signum, siginfo_t *pid, void *arg);
 /**
  * @brief Increments the new data received from the client.
  * @param new_char New char received.
  * @param client_str String with the data received.
  * @return char* New string with the new data.
  */
-static char	*increment_new_data(char new_char, char *client_str);
+char	*increment_new_data(char new_char, char *client_str);
 // @@@@@@@@@@ Client @@@@@@@@@@
 /**
  * @brief Function that receive the signal SIGUSR2 when the 
  * string message arrive with success.
  * @param signum SIGUSR1 or SIGUSR2.
  */
-static void	bit_confirm(int signum);
+void	bit_confirm(int signum);
 /**
  * @brief Sends the bit to the server.
  * @param pid PID of the server.
  * @param byte Byte to send (8 bits).
  */
-void		ft_sendbit(int pid, char byte);
+void	ft_sendbit(int pid, char byte);
 #endif

@@ -6,13 +6,13 @@
 /*   By: israeloriente <israeloriente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 16:58:41 by israelorien       #+#    #+#             */
-/*   Updated: 2022/12/17 15:22:22 by israelorien      ###   ########.fr       */
+/*   Updated: 2022/12/17 15:35:19 by israelorien      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-static void	bit_confirm(int signum)
+void	bit_confirm(int signum)
 {
 	if (signum == SIGUSR2)
 	{
