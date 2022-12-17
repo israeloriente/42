@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: israeloriente <israeloriente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/16 11:50:36 by rasantos          #+#    #+#             */
-/*   Updated: 2022/12/16 17:04:05 by israelorien      ###   ########.fr       */
+/*   Created: 2022/03/16 11:50:36 by israelorien       #+#    #+#             */
+/*   Updated: 2022/12/17 15:29:24 by israelorien      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int	ft_putchar(char c)
 {
-	write (1, &c, 1);
+	write(1, &c, 1);
 	return (1);
 }

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: israeloriente <israeloriente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/17 14:24:45 by rasantos          #+#    #+#             */
-/*   Updated: 2022/12/16 17:04:09 by israelorien      ###   ########.fr       */
+/*   Created: 2022/03/17 14:24:45 by israelorien       #+#    #+#             */
+/*   Updated: 2022/12/17 15:29:33 by israelorien      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ static int	ft_counter(unsigned int nbr)
 
 static void	ft_free(char *ns, char *s)
 {
-	free (ns);
+	free(ns);
 	ns = NULL;
-	free (s);
+	free(s);
 	s = NULL;
 }
 
