@@ -55,5 +55,5 @@ dkms.conf
 .vscode/
 
 minitalk/server
-
 minitalk/client
+minitalk/debug

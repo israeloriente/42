@@ -5,64 +5,61 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: israeloriente <israeloriente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 12:15:02 by israelorien       #+#    #+#             */
-/*   Updated: 2022/10/27 11:50:37 by israelorien      ###   ########.fr       */
+/*   Created: 2022/12/16 16:58:41 by israelorien       #+#    #+#             */
+/*   Updated: 2022/12/17 15:35:19 by israelorien      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void	mandar(char c)
+void	bit_confirm(int signum)
 {
-	printf("%c", c);
-	// printf("%i\n", (c >> 5) & 1);
-	// printf("%i\n", (c >> 4) & 1);
-	// printf("%i\n", (c >> 3) & 1);
-}
-
-int	parse_int(char *pid)
-{
-	int	i;
-	int	num;
-
-	i = 0;
-	num = 0;
-	while (pid && pid[i] >= 48 && pid[i] <= 57)
+	if (signum == SIGUSR2)
 	{
-		if (pid[i] <= 47 || pid[i] > 57)
-			return (0);
-		num = (num * 10) + (pid[i] - 48);
-		i++;
+		ft_printf("\nBytes received ✅\n");
+		exit(0);
 	}
-	return (num);
 }
 
-// printf("PID is: %s\n", pid);
-// printf("Message is: %s\n", msg);
-int	main(int argc, char *argv[])
+void	ft_sendbit(int pid, char byte)
 {
-	char	*pid;
-	char	*msg;
+	int	c;
+
+	c = 0;
+	while (c < 8)
+	{
+		if (byte & 1)
+			kill(pid, SIGUSR1);
+		else
+			kill(pid, SIGUSR2);
+		byte = (byte >> 1);
+		c++;
+		usleep(500);
+	}
+}
+
+int	main(int argc, char **argv)
+{
+	int		pid;
 	int		i;
-	int		m;
+	char	*client_msg;
 
-	msg = 0;
-	if (!argv[1] || !argv[2])
-		return (0);
-	pid = argv[1];
-	msg = argv[2];
-	i = parse_int(pid);
-	if (i)
+	if (argc != 3)
+		return (ft_printf("Error: Wrong number of arguments\n"));
+	pid = ft_atoi(argv[1]);
+	if (kill(pid, 0) < 0)
+		return (ft_printf("Error: Invalid PID\n"));
+	client_msg = argv[2];
+	i = 0;
+	signal(SIGUSR1, &bit_confirm);
+	signal(SIGUSR2, &bit_confirm);
+	while (client_msg && 1)
 	{
-		kill(i, SIGUSR1);
-		kill(i, SIGUSR2);
+		ft_sendbit(pid, client_msg[i]);
+		if (!client_msg[i++])
+			break ;
 	}
-	else
-		printf("Invalid PID\n");
-	mandar(msg[0]);
-	// while (msg[m])
-	// {
-	// 	mandar(msg[m]);
-	// 	m++;
-	// }
+	while (1)
+		pause();
+	return (0);
 }
