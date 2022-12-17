@@ -6,17 +6,17 @@
 /*   By: israeloriente <israeloriente@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 16:58:41 by israelorien       #+#    #+#             */
-/*   Updated: 2022/12/16 17:02:38 by israelorien      ###   ########.fr       */
+/*   Updated: 2022/12/17 15:22:22 by israelorien      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-static void	ft_bit_counter(int signum)
+static void	bit_confirm(int signum)
 {
 	if (signum == SIGUSR2)
 	{
-		ft_printf("\nBytes received with success\n");
+		ft_printf("\nBytes received ✅\n");
 		exit(0);
 	}
 }
@@ -51,8 +51,8 @@ int	main(int argc, char **argv)
 		return (ft_printf("Error: Invalid PID\n"));
 	client_msg = argv[2];
 	i = 0;
-	signal(SIGUSR1, &ft_bit_counter);
-	signal(SIGUSR2, &ft_bit_counter);
+	signal(SIGUSR1, &bit_confirm);
+	signal(SIGUSR2, &bit_confirm);
 	while (client_msg && 1)
 	{
 		ft_sendbit(pid, client_msg[i]);
